@@ -1,10 +1,10 @@
 require('dotenv').config()
 //waler provider mechanism to sign transactions
-const HDwalletProvider = require("@truffle/hdwallet-provider"); 
+const HDWalletProvider = require("@truffle/hdwallet-provider"); 
 //storage private keys
 const private_keys = [
-process.env.PRIVATE_KEY0,
-process.env.PRIVATE_KEY1,
+process.env.PRIVATE_KEY_0,
+process.env.PRIVATE_KEY_1,
 ]
 
 module.exports={
@@ -19,16 +19,28 @@ module.exports={
     //eth testnet
     rinkeby:{
       provider: () => new HDWalletProvider({
-      private_keys: private_keys,
-      providerorUrl: 'https://rinkeby.infura.io/v3/ffa0ca21d5a543e791026bf4e6ae6dc9',
+      privateKeys: private_keys,
+      providerOrUrl: 'https://rinkeby.infura.io/v3/ffa0ca21d5a543e791026bf4e6ae6dc9',
       numberOfAddress: 2
       }),
-      network_id: 42,
+      network_id: 4,
       gas: 5500000,
       confirmations : 2,
       timeoutBlocks : 200, // # of blocks before a deployment times out (minimum/default : 50)
       skipDryRun: true
     }
+  },
+  //eth itself
+  mainnet:{
+    provider: () => new HDWalletProvider(
+    process.env.SECRET_KEY,
+   `https://mainnet.infura.io/v3/ffa0ca21d5a543e791026bf4e6ae6dc9`,
+    ),
+    network_id: 1,
+    gas: 5500000,
+    confirmations : 2,
+    timeoutBlocks : 200, // # of blocks before a deployment times out (minimum/default : 50)
+    skipDryRun: true
   },
   solc:{
     optimizer:{
